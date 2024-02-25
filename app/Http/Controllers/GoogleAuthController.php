@@ -28,7 +28,6 @@ class GoogleAuthController extends Controller
         $authUser = User::findOrCreate($user);
         Auth::login($authUser, true);
 
-        // For now, let's just return the user details as provided by Google
-        return redirect()->route('home');
+        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')]);
     }
 }

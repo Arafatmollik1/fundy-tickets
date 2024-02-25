@@ -6,9 +6,6 @@ class TicketController extends Controller
 {
     public function showByFundId($fund_id)
     {
-
-        $tickets = 'e45j';
-
-        return view('tickets.index', compact('tickets'));
+        return view('tickets.index', ['fund_id' => $fund_id]);
     }
 }

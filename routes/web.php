@@ -45,9 +45,9 @@ Route::middleware('fund.id')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::middleware(['auth'])->group(function () {
-        Route::get('/home', function () {
-            return view('home');
-        })->name('home');
+        /*        Route::get('/home', function () {
+                    return view('home');
+                })->name('home');*/
         Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
             ->name('tickets.showByFundId');
     });
