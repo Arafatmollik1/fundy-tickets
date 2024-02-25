@@ -17,8 +17,9 @@
                              class="inline-block bg-fundy-main text-fundy-text text-center align-middle w-full rounded border border-fundy-primary shadow-md whitespace-nowrap">
                             <img src="{{asset('google_icon.svg')}}" alt="Google Sign-in"
                                  class="inline-block align-middle w-10 h-10 mr-2">
-                            <a href="login/processLoginWithGoogle" class="align-middle no-underline hover:no-underline">Sign
-                                in with Google</a>
+                            <a href="{{ route('login.google') }}" class="align-middle no-underline hover:no-underline">
+                                Sign in with Google
+                            </a>
                         </div>
 
                     </div>

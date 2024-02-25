@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\FundIdController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,16 +20,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [LoginController::class, 'index'])
-    ->name('login.show');
+// Route for setting the fund_id and redirecting to login
+Route::get('/fund-id', [FundIdController::class, 'setFundId'])->name('fund.id.set');
 
-Route::get('/test-db', function () {
-    try {
-        $databaseTest = DB::select('SELECT NOW() as now'); // For MySQL
+// Route that requires fund_id in session, otherwise redirects to get-fund-id
+Route::middleware('fund.id')->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])
+        ->name('login.show');
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
 
-        // For other databases, you might need to adjust the SQL query accordingly.
-        return response()->json(['success' => true, 'time' => $databaseTest[0]->now]);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'error' => $e->getMessage()]);
-    }
+    Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogle'])
+        ->name('login.google');
+    Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCallback'])
+        ->name('login.google.authcallback');
 });
+
+// Route to get fund_id (should show a form or some method to set fund_id)
+Route::get('/get-fund-id', function () {
+    return view('get-fund-id');
+})->name('fund.id.get');
