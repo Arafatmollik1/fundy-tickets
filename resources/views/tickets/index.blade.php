@@ -13,9 +13,8 @@
                     </h1>
                     <p class="text-left mb-4">
                         Laser tag is played in a dimly lit, fog-filled, multi-level arena where
-                        players are
-                        provided with high tech vests and awesome but harmless laser guns. Players then try to score
-                        points
+                        players are provided with high tech vests and awesome but harmless laser guns.
+                        Players then try to score points
                         by deactivating other players’ vests and destroying their bases.
                     </p>
                     <div class="flex flex-col lg:flex-row pb-6 gap-2">
@@ -38,11 +37,12 @@
                             Date and time : 02.03.2024 18:00
                         </div>
                     </div>
-                    <button
+                    <a
+                        href="{{ route('tickets.showPayByFundId', ['fund_id' => $fund_id]) }}"
                         class="bg-fundy-primary hover:bg-fundy-hover-primary text-white font-bold py-2 px-4 rounded"
                     >
                         Book Now
-                    </button>
+                    </a>
                 </div>
             </div>
 
