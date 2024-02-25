@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
+use App\Models\PaymentsSimplified;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
@@ -27,16 +28,17 @@ class PaymentController extends Controller
             // Add more validation rules as needed
         ]);*/
         // Create a new payment record
-        $payment = new Payment([
-            'ticket_id' => '673506',
-            'name' => $request->payers_name,
-            'email' => $request->payers_email,
-            'phone_no' => $request->payers_phone,
-            'participant_no' => 2,
-            'participant_info' => null,
-            'payment_amount' => 12,
-            'payment_time' => Carbon::now(),
-            'payment_status' => 'pending',
+        $payment = new PaymentsSimplified([
+            'payment_id' => Str::uuid(),
+            'user_id' => auth()->id(),
+            'fund_id' => session('fund_id'),
+            'payers_name' => $request->input('payers_name'),
+            'payers_email' => $request->input('payers_email'),
+            'payers_phone' => $request->input('payers_phone'),
+            'participant_no' => $request->input('participants'),
+            'amount' => 12,
+            'payment_date' => Carbon::now(),
+            'status' => 'pending',
         ]);
         $payment->save();
 
