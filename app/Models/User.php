@@ -49,32 +49,44 @@ class User extends Authenticatable
      */
     public static function findOrCreate(SocialiteUser $socialiteUser): User
     {
-        // Attempt to retrieve the user by their socialite ID or email
-        $authUser = self::where('email', $socialiteUser->getEmail())->first();
-
-        if ($authUser) {
-            $authUser->last_login = now();
-            $authUser->save();
-
-            return $authUser;
-        }
-
-        // If the user does not exist, create a new user instance
-        $authUser = new self();
-
         $fundId = session('fund_id');
         // Check if fund_id is null and throw an exception if true
         if (is_null($fundId)) {
             throw new \Exception('No fund_id found in session.');
         }
-        $authUser->fund_id = $fundId;
 
-        $authUser->name = $socialiteUser->getName();
-        $authUser->email = $socialiteUser->getEmail();
-        $authUser->user_id = $socialiteUser->getId();
+        // Attempt to retrieve all users by their email
+        $users = self::where('email', $socialiteUser->getEmail())->get();
+
+        $authUser = null;
+        // Iterate over users to find a match for fundId
+        foreach ($users as $user) {
+            if ($user->fund_id == $fundId) {
+                $authUser = $user;
+                break;
+            }
+        }
+
+        // If no matching user is found, create a new user
+        if (! $authUser) {
+            $authUser = new self();
+            $authUser->fund_id = $fundId;
+            $authUser->name = $socialiteUser->getName();
+            $authUser->email = $socialiteUser->getEmail();
+            $authUser->user_id = $socialiteUser->getId();
+            $authUser->ref_id = self::generateUniqueRefID($authUser->name, $fundId);
+        }
+
         $authUser->last_login = now();
         $authUser->save();
 
         return $authUser;
+    }
+
+    public static function generateUniqueRefID($userName, $fundId): string
+    {
+        $refID = $fundId.preg_replace('/\s+/', '', $userName).rand(1000, 9999);
+
+        return strtoupper($refID);
     }
 }

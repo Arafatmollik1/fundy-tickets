@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentRecipientInfo;
 use App\Models\PaymentsSimplified;
+use App\Models\PostContentSimplified;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    public function showPayByFundId($fund_id)
+    public function showPayByFundId()
     {
-        return view('tickets.payments', ['fund_id' => $fund_id]);
+        return view('tickets.payments',
+            [
+                'paymentRecipientInfo' => PaymentRecipientInfo::where('fund_id', session('fund_id'))
+                    ->first(),
+                'ticket_price' => PostContentSimplified::where('fund_id', session('fund_id'))
+                    ->first()
+                    ->ticket_price,
+            ]);
     }
 
     public function setPayment(Request $request)
@@ -36,7 +45,7 @@ class PaymentController extends Controller
             'payers_email' => $request->input('payers_email'),
             'payers_phone' => $request->input('payers_phone'),
             'participant_no' => $request->input('participants'),
-            'amount' => 12,
+            'amount' => $request->input('total_amount'),
             'payment_date' => Carbon::now(),
             'status' => 'pending',
         ]);
