@@ -1,8 +1,8 @@
 <x-layouts.app>
     <div class="container mx-auto flex justify-center h-screen">
-        <div class="w-[300px] flex justify-center">
+        <div class="w-full flex justify-center">
             <form action="{{ route('fund.id.set') }}" method="GET"
-                  class="flex flex-col items-center justify-center min-h-screen bg-fundy-gray-bg p-6">
+                  class="flex flex-col items-center justify-center p-6">
                 <div class="relative mb-8">
                     <input type="text" name="id" id="floatingFundID"
                            class="bg-transparent peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-fundy-primary"
