@@ -10,9 +10,9 @@
     @vite(["resources/css/app.css", "resources/js/app.js"])
 </head>
 <body class="bg-fundy-main text-fundy-text">
+<x-header/>
 <div id="app">
     {{ $slot }}
 </div>
-<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
