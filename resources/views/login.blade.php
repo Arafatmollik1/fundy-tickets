@@ -1,7 +1,7 @@
 <x-layouts.app>
     <div class="container mx-auto flex justify-center h-screen">
-        <div class="flex flex-col justify-evenly w-[300px]">
-            <div class="flex flex-row justify-center">
+        <div class="flex flex-col justify-center w-[300px]">
+            <div class="flex flex-row justify-center mb-10">
                 <div class="text-center">
                     <div class="flex items-end justify-center my-2">
                         <img src="{{ asset('fundy-logo.svg') }}" alt="Fundy Logo" class="img-fluid">
