@@ -15,6 +15,13 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Adjust to match your project's PHP version
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+          tools: composer:v2
+
       # New step to install Composer dependencies
       - name: Install Composer Dependencies
         run: composer install --no-progress --prefer-dist
