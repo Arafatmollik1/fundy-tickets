@@ -15,6 +15,9 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
+      # New step to install Composer dependencies
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --prefer-dist
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
