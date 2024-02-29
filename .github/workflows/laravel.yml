@@ -64,5 +64,3 @@ jobs:
           server: ${{ secrets.H_SERVER }}
           username: ${{ secrets.H_USERNAME }}
           password: ${{ secrets.H_PASSWORD }}
-          exclude:
-            - vendor/**
