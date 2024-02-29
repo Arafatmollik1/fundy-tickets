@@ -3,6 +3,8 @@ name: Laravel Deployment with Vite Build Adjustment
 on:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - 'vendor/**'
 
 jobs:
   build-and-deploy:
