@@ -57,6 +57,12 @@ jobs:
       - name: Generate Laravel Key
         run: php artisan key:generate
 
+      - name: Zip Vendor Directory
+        run: zip -r vendor.zip vendor
+
+      - name: Remove Unzipped Vendor Folder
+        run: rm -rf vendor
+
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
