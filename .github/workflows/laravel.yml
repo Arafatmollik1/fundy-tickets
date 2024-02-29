@@ -27,8 +27,8 @@ jobs:
       - name: Build with Vite
         run: npm run build
 
-      - name: Move Build Folder
-        run: mv public/build ../build
+      - name: Adjust Build Folder Location
+        run: mv public/build ./
 
       - name: Set up Environment Variables
         run: |
