@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('ticket_user_email')->nullable();
             $table->string('ticket_user_phone')->nullable();
             $table->integer('ticket_quantity')->default(1);
+            $table->string('ticket_payment_id')->nullable();
             $table->enum('status', ['pending', 'none', 'confirmed'])->default('pending');
             $table->timestamps();
         });

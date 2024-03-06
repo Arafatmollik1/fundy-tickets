@@ -19,7 +19,7 @@
                            placeholder=" " required/>
                     <label for="floating_name"
                            class="peer-focus:font-medium absolute text-sm text-fundy-text duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-fundy-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                        Your name
+                        Payer's name
                     </label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
@@ -28,7 +28,7 @@
                            placeholder=" " required/>
                     <label for="floating_email"
                            class="peer-focus:font-medium absolute text-sm text-fundy-text duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-fundy-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                        Your email
+                        Payer's email
                     </label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
@@ -37,7 +37,7 @@
                            placeholder=" " required/>
                     <label for="floating_phone"
                            class="peer-focus:font-medium absolute text-sm text-fundy-text duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-fundy-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
-                        Your phone number
+                        Payer's phone number
                     </label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">

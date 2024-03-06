@@ -51,6 +51,8 @@ Route::middleware('fund.id')->group(function () {
                 })->name('home');*/
         Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
             ->name('tickets.showByFundId');
+        Route::get('/my-tickets', [TicketController::class, 'showMyTickets'])
+            ->name('tickets.showMyTickets');
         Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
             ->name('tickets.showPayByFundId');
         Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])

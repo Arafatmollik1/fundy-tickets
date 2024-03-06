@@ -2,21 +2,21 @@
     <div class="container mx-auto flex justify-center h-screen mt-10 mb-10">
         <div class="flex flex-col bg-transparent justify-evenly w-[300px] lg:w-full">
             <div class="flex flex-col bg-white lg:flex-row shadow-lg rounded">
-                <div class="w-full">
+                <div class="lg:max-w-md">
                     <img class="w-full h-full object-cover rounded-t lg:rounded"
                          src="{{$post_content->img_src}}"
                          alt="laser tag game"
                          loading="lazy"
                     >
                 </div>
-                <div class="p-4">
+                <div class="p-4 lg:max-w-md">
                     <h1 class="text-xl font-bold text-left my-4">
                         {{$post_content->header}}
                     </h1>
                     <p class="text-left mb-4">
                         {{$post_content->subheader}}
                     </p>
-                    <div class="flex flex-col lg:flex-row pb-6 gap-2">
+                    <div class="flex flex-col pb-6 gap-2">
                         <div
                             class="w-fit bg-gray-100 text-gray-800 text-xs font-medium me-2 p-2 rounded-full"
                         >
@@ -42,6 +42,15 @@
                     >
                         Book Now
                     </a>
+                    @isset($paymentStatus)
+                        <div class="my-4 bg-fundy-warning-bg rounded p-4">
+                            <i class="text-fundy-warning fa-regular fa-bell"></i>
+                            <span class="ml-2 text-fundy-warning">
+                            {{ "You have {$paymentStatus->count()} payment pending" }}
+                        </span>
+                        </div>
+                    @endisset
+
                 </div>
             </div>
 

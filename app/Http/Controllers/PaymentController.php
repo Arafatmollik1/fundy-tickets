@@ -24,19 +24,7 @@ class PaymentController extends Controller
     }
 
     public function setPayment(Request $request)
-    {/*
-        $validated = $request->validate([
-            'ticket_id' => 'required|string',
-            'name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone_no' => 'nullable|string',
-            'participant_no' => 'nullable|int',
-            'participant_info' => 'nullable|string',
-            'payment_amount' => 'required|int',
-            'payment_status' => 'nullable|string',
-            // Add more validation rules as needed
-        ]);*/
-        // Create a new payment record
+    {
         $payment = new PaymentsSimplified([
             'payment_id' => Str::uuid(),
             'user_id' => auth()->id(),
@@ -51,7 +39,7 @@ class PaymentController extends Controller
         ]);
         $payment->save();
 
-        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')])->with('success', 'Payment successful!');
+        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')]);
 
     }
 }

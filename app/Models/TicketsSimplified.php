@@ -14,6 +14,7 @@ class TicketsSimplified extends Model
         'ticket_user_email',
         'ticket_user_phone',
         'ticket_quantity',
+        'ticket_payment_id',
         'status',
     ];
 
