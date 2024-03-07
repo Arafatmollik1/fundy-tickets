@@ -10,6 +10,6 @@ class PaymentsSimplified extends Model
 
     // Fillable attributes for mass assignment
     protected $fillable = ['payment_id', 'user_id', 'fund_id',
-        'payers_name', 'payers_email', 'payers_phone',
+        'payers_name', 'payers_email', 'ref_no', 'payers_phone',
         'participant_no', 'amount', 'payment_date', 'status'];
 }

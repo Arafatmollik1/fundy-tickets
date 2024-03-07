@@ -10,7 +10,7 @@
                     </span>
         </div>
         <div class="w-1/4 my-auto">
-            <a href="{{ route('super.event.show', $eventInfo->fund_id) }}"
+            <a href="{{ route('super.event.payments', $eventInfo->fund_id) }}"
                class="bg-fundy-primary text-nowrap hover:bg-fundy-hover-secondary text-white font-bold py-2 px-4 rounded">
                 View Payments
             </a>

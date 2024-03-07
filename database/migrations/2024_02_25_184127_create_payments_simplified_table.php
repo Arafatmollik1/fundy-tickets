@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('payers_name');
             $table->string('payers_email');
             $table->string('payers_phone');
+            $table->string('ref_no');
             $table->integer('participant_no');
             $table->integer('amount');
             $table->timestamp('payment_date')->useCurrent();

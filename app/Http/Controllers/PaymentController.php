@@ -33,6 +33,7 @@ class PaymentController extends Controller
             'payers_email' => $request->input('payers_email'),
             'payers_phone' => $request->input('payers_phone'),
             'participant_no' => $request->input('participants'),
+            'ref_no' => $request->input('ref_no'),
             'amount' => $request->input('total_amount'),
             'payment_date' => Carbon::now(),
             'status' => 'pending',
