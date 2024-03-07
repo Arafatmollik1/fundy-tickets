@@ -23,7 +23,7 @@
             </div>
             <div class="w-1/4 my-auto">
                 <a href="{{ route('super.event.show', $info->fund_id) }}"
-                   class="bg-fundy-primary hover:bg-fundy-hover-secondary text-white font-bold py-2 px-4 rounded">
+                   class="bg-fundy-primary hover:bg-fundy-hover-secondary text-white break-keep font-bold py-2 px-4 rounded">
                     View
                 </a>
             </div>
