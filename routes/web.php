@@ -5,6 +5,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SuperController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return route('fund.id.set');
 });
 
 // Route for setting the fund_id and redirecting to login
@@ -46,9 +47,6 @@ Route::middleware('fund.id')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::middleware(['auth'])->group(function () {
-        /*        Route::get('/home', function () {
-                    return view('home');
-                })->name('home');*/
         Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
             ->name('tickets.showByFundId');
         Route::get('/my-tickets', [TicketController::class, 'showMyTickets'])
@@ -57,5 +55,16 @@ Route::middleware('fund.id')->group(function () {
             ->name('tickets.showPayByFundId');
         Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
             ->name('tickets.payments.set');
+        /*
+         |----------------------------------
+         | Routes under super
+         |----------------------------------
+         */
+        Route::middleware(['super'])->group(function () {
+            Route::prefix('super')->group(function () {
+                Route::get('/dashboard', [SuperController::class, 'index'])
+                    ->name('super.dashboard');
+            });
+        });
     });
 });

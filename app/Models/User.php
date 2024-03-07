@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 
 /**
@@ -88,5 +89,10 @@ class User extends Authenticatable
         $refID = $fundId.preg_replace('/\s+/', '', $userName).rand(1000, 9999);
 
         return strtoupper($refID);
+    }
+
+    public static function isSuperUser(): bool
+    {
+        return SuperUsers::where('email', Auth::user()->email)->count() > 0;
     }
 }
