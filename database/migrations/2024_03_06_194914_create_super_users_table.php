@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->json('all_fund_ids')->nullable();
             $table->timestamps();
         });
     }

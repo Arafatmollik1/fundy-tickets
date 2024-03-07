@@ -9,12 +9,14 @@
             </a>
 
             <div class="flex align-middle gap-2">
-                <a href="{{ route('tickets.showMyTickets')  }}"
-                   class="nav-item nav-link active inline-flex items-center text-lg text-gray-700 hover:text-gray-900 focus:text-gray-900"
-                >
-                    <i class="fa-solid fa-clipboard-list mx-1 text-sm"></i>
-                    My Tickets
-                </a>
+                @can('super-user-not-view')
+                    <a href="{{ route('tickets.showMyTickets')  }}"
+                       class="nav-item nav-link active inline-flex items-center text-lg text-gray-700 hover:text-gray-900 focus:text-gray-900"
+                    >
+                        <i class="fa-solid fa-clipboard-list mx-1 text-sm"></i>
+                        My Tickets
+                    </a>
+                @endcan
                 <a href="{{ route('logout') }}"
                    class="nav-item nav-link active inline-flex items-center text-lg text-gray-700 hover:text-gray-900 focus:text-gray-900">
                     <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
