@@ -64,7 +64,10 @@ Route::middleware('fund.id')->group(function () {
             Route::prefix('super')->group(function () {
                 Route::get('/dashboard', [SuperController::class, 'index'])
                     ->name('super.dashboard');
+                Route::get('/event-info/{fund_id}', [SuperController::class, 'showEventInfoById'])
+                    ->name('super.event.show');
             });
+
         });
     });
 });
