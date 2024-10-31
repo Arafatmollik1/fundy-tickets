@@ -4,8 +4,7 @@
             <div class="flex flex-col bg-white lg:flex-row shadow-lg rounded">
                 <div class="lg:max-w-md">
                     <img class="w-full h-full object-cover rounded-t lg:rounded"
-                         src="{{$post_content->img_src}}"
-                         alt="laser tag game"
+                         src="{{ asset($post_content->img_src) }}"
                          loading="lazy"
                     >
                 </div>
@@ -42,19 +41,8 @@
                     >
                         Book Now
                     </a>
-                    @isset($paymentStatus)
-                        <div class="my-4 bg-fundy-warning-bg rounded p-4">
-                            <i class="text-fundy-warning fa-regular fa-bell"></i>
-                            <span class="ml-2 text-fundy-warning">
-                            {{ "You have {$paymentStatus->count()} payment pending" }}
-                        </span>
-                        </div>
-                    @endisset
-
                 </div>
             </div>
-
-
         </div>
     </div>
 </x-layouts.app>

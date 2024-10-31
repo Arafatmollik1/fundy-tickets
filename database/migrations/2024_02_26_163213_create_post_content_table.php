@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('post_content_simplified', function (Blueprint $table) {
+        Schema::create('post_content', function (Blueprint $table) {
             $table->id();
             $table->string('fund_id');
             $table->string('header');

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return route('fund.id.set');
+    return redirect()->route('fund.id.get');
 });
 
 // Route for setting the fund_id and redirecting to login
@@ -34,33 +34,35 @@ Route::get('/get-fund-id', function () {
 
 // Route that requires fund_id in session, otherwise redirects to get-fund-id
 Route::middleware('fund.id')->group(function () {
-    Route::get('/login', [LoginController::class, 'index'])
+
+    Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
+        ->name('tickets.showByFundId');
+/*    Route::get('/my-tickets', [TicketController::class, 'showMyTickets'])
+        ->name('tickets.showMyTickets');*/
+    Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
+        ->name('tickets.showPayByFundId');
+    Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
+        ->name('tickets.payments.set');
+
+/*    Route::get('/login', [LoginController::class, 'index'])
         ->name('login.show');
     Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogle'])
         ->name('login.google');
     Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCallback'])
         ->name('login.google.authcallback');
-    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');*/
     /*
     |--------------------------------------------------------------------------
     | Routes under auth middleware
     |--------------------------------------------------------------------------
     */
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
-            ->name('tickets.showByFundId');
-        Route::get('/my-tickets', [TicketController::class, 'showMyTickets'])
-            ->name('tickets.showMyTickets');
-        Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
-            ->name('tickets.showPayByFundId');
-        Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
-            ->name('tickets.payments.set');
+/*    Route::middleware(['auth'])->group(function () {*/
         /*
          |----------------------------------
          | Routes under super
          |----------------------------------
          */
-        Route::middleware(['super'])->group(function () {
+/*        Route::middleware(['super'])->group(function () {
             Route::prefix('super')->group(function () {
                 Route::get('/dashboard', [SuperController::class, 'index'])
                     ->name('super.dashboard');
@@ -71,5 +73,5 @@ Route::middleware('fund.id')->group(function () {
             });
 
         });
-    });
+    });*/
 });

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PaymentConfirmationMail;
+use App\Models\Payment;
 use App\Models\PaymentRecipientInfo;
 use App\Models\PaymentsSimplified;
+use App\Models\PostContent;
 use App\Models\PostContentSimplified;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use PhpOffice\PhpWord\IOFactory;
 
 class PaymentController extends Controller
 {
@@ -17,7 +22,7 @@ class PaymentController extends Controller
             [
                 'paymentRecipientInfo' => PaymentRecipientInfo::where('fund_id', session('fund_id'))
                     ->first(),
-                'ticket_price' => PostContentSimplified::where('fund_id', session('fund_id'))
+                'ticket_price' => PostContent::where('fund_id', session('fund_id'))
                     ->first()
                     ->ticket_price,
             ]);
@@ -25,9 +30,9 @@ class PaymentController extends Controller
 
     public function setPayment(Request $request)
     {
-        $payment = new PaymentsSimplified([
+        $payment = new Payment([
             'payment_id' => Str::uuid(),
-            'user_id' => auth()->id(),
+            'user_id' => rand(1, 100),
             'fund_id' => session('fund_id'),
             'payers_name' => $request->input('payers_name'),
             'payers_email' => $request->input('payers_email'),
@@ -39,6 +44,9 @@ class PaymentController extends Controller
             'status' => 'pending',
         ]);
         $payment->save();
+
+        // Send the email
+        Mail::to($request->input('payers_email'))->send(new PaymentConfirmationMail($payment));
 
         return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')]);
 

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PostContent
- * 
+ *
  * @property int $id
  * @property string|null $post_id
  * @property string|null $header
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PostContent extends Model
 {
-	protected $table = 'post_contents';
+	protected $table = 'post_content';
 	public $timestamps = false;
 
 	protected $fillable = [

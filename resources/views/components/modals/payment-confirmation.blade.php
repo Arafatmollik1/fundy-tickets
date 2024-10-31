@@ -8,9 +8,9 @@
             <button @click="showModal = false" type="button">&times;</button>
         </div>
         <!-- Modal header -->
-        <h3 class="text-lg font-bold">Payment Confirmation</h3>
+        <h3 class="text-lg font-bold">Are you sure that you have paid?</h3>
         <!-- Modal body -->
-        <p class="my-4">You sure you have paid?</p>
+        <p class="my-4">You will be sent an confirmation email after payment confirmed</p>
         <div class="w-full">
 
             <button type="submit"

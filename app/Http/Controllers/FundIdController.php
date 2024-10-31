@@ -14,7 +14,7 @@ class FundIdController extends Controller
         if ($fundId) {
             $request->session()->put('fund_id', $fundId);
 
-            return redirect('/login');
+            return redirect()->route('tickets.showByFundId', ['fund_id' => $fundId]);
         }
 
         // If no id was provided, redirect to the 'get-fund-id' page

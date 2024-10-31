@@ -41,6 +41,15 @@
                     </label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="payers_message" id="floating_message"
+                           class="block py-2.5 px-0 w-full text-sm text-fundy-text bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-fundy-primary peer"
+                           placeholder=" " required/>
+                    <label for="floating_message"
+                           class="peer-focus:font-medium absolute text-sm text-fundy-text duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-fundy-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
+                        Custom Message
+                    </label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
                     <input type="number" name="participants" x-model.number="participants" id="floating_phone"
                            class="block py-2.5 px-0 w-full text-sm text-fundy-text bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-fundy-primary peer"
                            placeholder=" " required min="1"/>
@@ -60,7 +69,7 @@
                            id="first_name"
                            name="ref_no"
                            class="bg-gray-50 border border-gray-300 text-fundy-text-gray text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                           value="{{ auth()->user()->ref_id }}" readonly/>
+                           value="{{ rand(1000000001, 99999999) }}" readonly/>
                 </div>
                 <div class="my-4">
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">

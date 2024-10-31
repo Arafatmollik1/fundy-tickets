@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Payment
- * 
+ *
  * @property int $id
  * @property string|null $payment_id
  * @property string|null $user_id
@@ -43,14 +43,15 @@ class Payment extends Model
 		'payment_id',
 		'user_id',
 		'ref_id',
+        'fund_id',
 		'ticket_id',
-		'name',
-		'email',
-		'phone_no',
+		'payers_name',
+		'payers_email',
+		'payers_phone',
 		'participant_no',
-		'participant_info',
-		'payment_amount',
-		'payment_time',
-		'payment_status'
+        'ref_no',
+        'amount',
+        'payment_date',
+        'status'
 	];
 }
