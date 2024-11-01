@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\SuperUsers;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class SuperUsersFactory extends Factory
 {
-    protected $model = SuperUsers::class;
+    protected $model = User::class;
 
     public function definition(): array
     {

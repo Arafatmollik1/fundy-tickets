@@ -28,10 +28,10 @@ class GoogleAuthController extends Controller
         $authUser = User::findOrCreate($user);
         Auth::login($authUser, true);
 
-        if (Auth::check() && User::isSuperUser()) {
+        if (Auth::check()) {
             return redirect()->route('super.dashboard');
         }
 
-        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')]);
+        return redirect()->route('login.show');
     }
 }

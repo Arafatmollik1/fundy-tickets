@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentsSimplified;
-use App\Models\PostContentSimplified;
-use App\Models\SuperUsers;
+use App\Models\Payment;
+use App\Models\PostContent;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SuperController
 {
     public function index(): view
     {
-        $eventInfo = SuperUsers::getEventInfo();
+        $postContentInfo = PostContent::where('user_id', Auth::id())->get();
 
         return view('super.dashboard',
             [
-                'eventInfo' => $eventInfo,
+                'allInfo' => $postContentInfo,
             ]
         );
     }
@@ -24,7 +25,7 @@ class SuperController
     public function showEventInfoById(Request $request): view
     {
         $fundId = $request->route('fund_id');
-        $eventInfo = PostContentSimplified::where('fund_id', $fundId)->first();
+        $eventInfo = PostContent::where('fund_id', $fundId)->first();
 
         return view('super.event-info',
             [
@@ -36,7 +37,7 @@ class SuperController
     public function showEventPaymentInfoById(Request $request): view
     {
         $fundId = $request->route('fund_id');
-        $paymentInfo = PaymentsSimplified::where('fund_id', $fundId)->get();
+        $paymentInfo = Payment::where('fund_id', $fundId)->get();
 
         return view('super.payment-info',
             [

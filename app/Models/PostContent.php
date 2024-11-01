@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class PostContent
@@ -21,13 +22,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PostContent extends Model
 {
-	protected $table = 'post_content';
-	public $timestamps = false;
+    protected $table = 'post_content';
 
-	protected $fillable = [
-		'post_id',
-		'header',
-		'subheader',
-		'image_URL'
-	];
+    protected $fillable = [
+        'user_id',
+        'fund_id',
+        'header',
+        'subheader',
+        'img_src',
+        'ticket_price',
+        'place_of_event',
+        'event_date',
+    ];
+
+    // Define the relationship with the User model
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

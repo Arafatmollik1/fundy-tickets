@@ -25,7 +25,6 @@
                     </div>
                     <div id="name"></div>
                 </div>
-                @feature('basic-auth-user-email')
                 <div class="flex items-center justify-center my-4 w-full">
                     <div class="flex-grow border-t border-gray-300"></div>
                     <span class="flex-shrink mx-4 text-gray-600">OR</span>
@@ -62,7 +61,6 @@
                         </button>
                     </form>
                 </div>
-                @endfeature
             </div>
         </div>
     </div>

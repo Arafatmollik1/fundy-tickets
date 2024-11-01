@@ -8,8 +8,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::all();
 
-        return view('login', ['tickets' => $tickets]);
+        return view('login');
     }
 }

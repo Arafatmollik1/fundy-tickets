@@ -1,11 +1,11 @@
 <x-layouts.app>
 
     <x-gradient-hero text="Welcome, {{ Auth::user()->name }} !"/>
-    @foreach($eventInfo as $info)
+    @foreach($allInfo as $info)
         <div class="container flex gap-2 my-4 mx-auto shadow">
             <div class="w-1/4">
                 <img class="w-full h-full object-cover rounded-l"
-                     src="{{$info->img_src}}"
+                     src="{{asset($info->img_src) }}"
                      alt="Image of {{ $info->header }}"
                      loading="lazy"
                 >
