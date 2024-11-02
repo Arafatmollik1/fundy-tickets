@@ -46,6 +46,29 @@ class SuperController
                     'confirmed' => 'fundy-success-bg',
                 ],
                 'paymentInfo' => $paymentInfo,
+                'fundId' => $fundId,
+            ]
+        );
+    }
+
+    public function showEventPaymentInfoByIdAndName(Request $request): view
+    {
+        $fundId = $request->input('fund_id');
+        $payersName = $request->input('payers_name');
+        $paymentInfo = Payment::where('fund_id', $fundId)
+            ->when($payersName, function ($query, $payersName) {
+                $query->where('payers_name', 'like', '%' . $payersName . '%');
+            })
+            ->get();
+
+        return view('super.payment-info',
+            [
+                'statusColorBG' => [
+                    'pending' => 'fundy-warning-bg',
+                    'confirmed' => 'fundy-success-bg',
+                ],
+                'paymentInfo' => $paymentInfo,
+                'fundId' => $fundId,
             ]
         );
     }

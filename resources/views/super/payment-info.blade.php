@@ -1,5 +1,11 @@
 <x-layouts.app>
     <x-gradient-hero text="Payments status"/>
+    <form class="container my-4 mx-auto" action="{{ route('super.event.search.payments') }}" method="POST">
+        @csrf
+        <input type="hidden" name="fund_id" value="{{$fundId}}">
+        <input type="text" name="payers_name" placeholder="Search by payer's name" class="border p-2 rounded mb-4 w-full">
+        <button class="bg-fundy-primary text-white p-2 rounded">Search</button>
+    </form>
     @foreach($paymentInfo as $info)
         <div
             class="container flex gap-2 my-4 p-4 mx-auto shadow border-l-8 border-l-{{$statusColorBG[$info->status] }}">

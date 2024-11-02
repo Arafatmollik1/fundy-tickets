@@ -69,5 +69,7 @@ Route::middleware('fund.id')->group(function () {
                 ->name('super.event.show');
             Route::get('/event-info/payments/{fund_id}', [SuperController::class, 'showEventPaymentInfoById'])
                 ->name('super.event.payments');
+            Route::post('/event-info/search-payments', [SuperController::class, 'showEventPaymentInfoByIdAndName'])
+                ->name('super.event.search.payments');
         });
 });
