@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FundEventController;
 use App\Http\Controllers\FundIdController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
@@ -49,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('super')->group(function () {
         Route::get('/dashboard', [SuperController::class, 'index'])
             ->name('super.dashboard');
+        Route::get('/fund-event', [FundEventController::class, 'index'])->name('super.fund-event.index');
+        Route::post('/fund-event', [FundEventController::class, 'store'])->name('super.fund-event.store');
         Route::get('/event-info/{fund_id}', [SuperController::class, 'showEventInfoById'])
             ->name('super.event.show');
         Route::get('/event-info/payments/{fund_id}', [SuperController::class, 'showEventPaymentInfoById'])
