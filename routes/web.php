@@ -32,44 +32,39 @@ Route::get('/get-fund-id', function () {
     return view('get-fund-id');
 })->name('fund.id.get');
 
+Route::get('/login', [LoginController::class, 'index'])
+    ->name('login');
+Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogle'])
+    ->name('login.google');
+Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCallback'])
+    ->name('login.google.authcallback');
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    /*
+ |----------------------------------
+ | Routes under super
+ |----------------------------------
+ */
+    Route::prefix('super')->group(function () {
+        Route::get('/dashboard', [SuperController::class, 'index'])
+            ->name('super.dashboard');
+        Route::get('/event-info/{fund_id}', [SuperController::class, 'showEventInfoById'])
+            ->name('super.event.show');
+        Route::get('/event-info/payments/{fund_id}', [SuperController::class, 'showEventPaymentInfoById'])
+            ->name('super.event.payments');
+        Route::post('/event-info/search-payments', [SuperController::class, 'showEventPaymentInfoByIdAndName'])
+            ->name('super.event.search.payments');
+    });
+});
+
 // Route that requires fund_id in session, otherwise redirects to get-fund-id
 Route::middleware('fund.id')->group(function () {
 
     Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
         ->name('tickets.showByFundId');
-/*    Route::get('/my-tickets', [TicketController::class, 'showMyTickets'])
-        ->name('tickets.showMyTickets');*/
     Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
         ->name('tickets.showPayByFundId');
     Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
         ->name('tickets.payments.set');
-
-    Route::get('/login', [LoginController::class, 'index'])
-        ->name('login.show');
-    Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogle'])
-        ->name('login.google');
-    Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCallback'])
-        ->name('login.google.authcallback');
-    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
-    /*
-    |--------------------------------------------------------------------------
-    | Routes under auth middleware
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-     |----------------------------------
-     | Routes under super
-     |----------------------------------
-     */
-        Route::prefix('super')->group(function () {
-            Route::get('/dashboard', [SuperController::class, 'index'])
-                ->name('super.dashboard');
-            Route::get('/event-info/{fund_id}', [SuperController::class, 'showEventInfoById'])
-                ->name('super.event.show');
-            Route::get('/event-info/payments/{fund_id}', [SuperController::class, 'showEventPaymentInfoById'])
-                ->name('super.event.payments');
-            Route::post('/event-info/search-payments', [SuperController::class, 'showEventPaymentInfoByIdAndName'])
-                ->name('super.event.search.payments');
-        });
 });

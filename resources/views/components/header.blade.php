@@ -2,7 +2,7 @@
     <nav class="flex justify-center gap-4  px-8 md:px-8 py-4 bg-transparent text-right">
         <div class="container flex justify-between ">
             <a
-                href="{{ route('tickets.showByFundId', ['fund_id' => session('fund_id')])}}"
+                href="{{ route('super.dashboard')}}"
                 class="flex justify-center items-start gap-2">
                 <img src="{{ asset('fundy-logo.svg') }}" width="12px" alt="Fundy Logo" class="img-fluid">
                 <span class="font-bold text-fundy-primary">Fundy</span>

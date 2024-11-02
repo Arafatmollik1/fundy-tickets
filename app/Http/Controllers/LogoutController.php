@@ -12,7 +12,6 @@ class LogoutController extends Controller
      */
     public function logout(Request $request)
     {
-        $fundId = $request->session()->get('fund_id');
 
         Auth::logout();
 
@@ -24,6 +23,6 @@ class LogoutController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/fund-id?id='.urlencode($fundId));
+        return redirect()->route('login');
     }
 }

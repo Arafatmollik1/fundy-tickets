@@ -32,6 +32,6 @@ class GoogleAuthController extends Controller
             return redirect()->route('super.dashboard');
         }
 
-        return redirect()->route('login.show');
+        return redirect()->route('login');
     }
 }
