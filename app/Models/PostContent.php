@@ -40,4 +40,10 @@ class PostContent extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Get paymentRecipientInfo from user id
+    public function paymentRecipientInfo(): BelongsTo
+    {
+        return $this->belongsTo(PaymentRecipientInfo::class, 'user_id', 'user_id');
+    }
 }

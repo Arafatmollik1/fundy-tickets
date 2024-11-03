@@ -16,14 +16,12 @@ class PaymentController extends Controller
 {
     public function showPayByFundId()
     {
-        return view('tickets.payments',
-            [
-                'paymentRecipientInfo' => PaymentRecipientInfo::where('fund_id', session('fund_id'))
-                    ->first(),
-                'ticket_price' => PostContent::where('fund_id', session('fund_id'))
-                    ->first()
-                    ->ticket_price,
-            ]);
+        $postContent = PostContent::where('fund_id', session('fund_id'))->first();
+
+        return view('tickets.payments', [
+            'paymentRecipientInfo' => $postContent ? $postContent->paymentRecipientInfo : null,
+            'ticket_price' => optional($postContent)->ticket_price,
+        ]);
     }
 
     public function setPayment(Request $request)
@@ -36,6 +34,7 @@ class PaymentController extends Controller
             'payers_email' => $request->input('payers_email'),
             'payers_phone' => $request->input('payers_phone'),
             'participant_no' => $request->input('participants'),
+            'message' => $request->input('payers_message'),
             'ref_no' => $request->input('ref_no'),
             'amount' => $request->input('total_amount'),
             'payment_date' => Carbon::now(),
@@ -43,10 +42,7 @@ class PaymentController extends Controller
         ]);
         $payment->save();
 
-        // Send the email
-        Mail::to($request->input('payers_email'))->send(new PaymentConfirmationMail($payment));
-
-        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')]);
+        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')])->with('success', 'Payment pending! You will be sent email after confirmation.');
 
     }
 }

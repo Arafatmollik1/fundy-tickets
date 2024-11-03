@@ -26,6 +26,7 @@
                 </p>
                 <p>participant No: {{ $info->participant_no }}</p>
                 <p>Amount paid: {{ $info->amount }}</p>
+                <p>Message from payer: {{ $info->message }}</p>
             </div>
             <div class="w-1/4 my-auto">
                 <div class="flex w-1/4 justify-start md:justify-center items-center">

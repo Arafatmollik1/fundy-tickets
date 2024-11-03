@@ -48,6 +48,7 @@ class Payment extends Model
 		'payers_name',
 		'payers_email',
 		'payers_phone',
+        'message',
 		'participant_no',
         'ref_no',
         'amount',

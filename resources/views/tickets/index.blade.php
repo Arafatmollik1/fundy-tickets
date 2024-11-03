@@ -1,6 +1,14 @@
 <x-layouts.app>
     <div class="container mx-auto flex justify-center h-screen mt-10 mb-10">
         <div class="flex flex-col bg-transparent justify-evenly w-[300px] lg:w-full">
+
+            @if(session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Success!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+
             <div class="flex flex-col bg-white lg:flex-row shadow-lg rounded">
                 <div class="lg:max-w-md">
                     <img class="w-full h-full object-cover rounded-t lg:rounded"
