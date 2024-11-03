@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('payment_recipient_info', function (Blueprint $table) {
             $table->id();
-            $table->string('fund_id');
-            $table->string('recipient_name');
-            $table->string('recipient_bank_acc');
-            $table->string('recipient_mobilepay');
+            $table->string('user_id')->nullable();
+            $table->string('recipient_name')->nullable();
+            $table->string('recipient_bank_acc')->nullable();
+            $table->string('recipient_mobilepay')->nullable();
             $table->timestamps();
         });
     }

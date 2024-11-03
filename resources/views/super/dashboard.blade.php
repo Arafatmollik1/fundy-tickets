@@ -9,6 +9,13 @@
            class="bg-fundy-primary hover:bg-fundy-hover-secondary text-white break-keep font-bold py-2 px-4 rounded">
             Create a new funding event
         </a>
+        <h1 class="text-2xl font-bold text-left my-8">
+            Add you payment Info
+        </h1>
+        <a href="{{ route('payment-recipient-info.create') }}"
+           class="bg-fundy-primary hover:bg-fundy-hover-secondary    text-white font-bold py-2 px-4 rounded mt-4">
+            Add your details
+        </a>
     </div>
 
     <div class="w-full">
