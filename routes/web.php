@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
             ->name('super.event.show');
         Route::get('/event-info/payments/{fund_id}', [SuperController::class, 'showEventPaymentInfoById'])
             ->name('super.event.payments');
+        Route::delete('/event-info/{fund_id}', [SuperController::class, 'deleteEventInfoById'])
+            ->name('super.event.remove');
         Route::post('/event-info/search-payments', [SuperController::class, 'showEventPaymentInfoByIdAndName'])
             ->name('super.event.search.payments');
     });

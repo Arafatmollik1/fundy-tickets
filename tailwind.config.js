@@ -13,6 +13,8 @@ module.exports = {
                 "fundy-gray": "#D8D8D8",
                 "fundy-success-bg": "#D2E892",
                 "fundy-success": "#3C8476",
+                "fundy-danger-bg": "#FFDADA",
+                "fundy-danger": "#C92A2A",
                 "fundy-warning-bg": "#FFF2E2",
                 "fundy-warning": "#D17300",
                 "fundy-hover-primary": "#2c3e50",

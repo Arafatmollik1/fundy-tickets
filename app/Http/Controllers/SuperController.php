@@ -51,6 +51,14 @@ class SuperController
         );
     }
 
+    public function deleteEventInfoById()
+    {
+        $fundId = request()->route('fund_id');
+        PostContent::where('fund_id', $fundId)->delete();
+
+        return redirect()->route('super.dashboard');
+    }
+
     public function showEventPaymentInfoByIdAndName(Request $request): view
     {
         $fundId = $request->input('fund_id');

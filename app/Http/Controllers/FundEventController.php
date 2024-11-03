@@ -22,10 +22,12 @@ class FundEventController extends Controller
             'event_date' => 'required',
             'event_price' => 'required',
             'place_of_event' => 'required',
-            'img_src' => 'required',
+            'img_src' => 'required|image|mimes:jpeg,png,jpg|max:4096',
         ]);
 
-        $getImageSourceName = "pictures/".$request->file('img_src')->getClientOriginalName();
+        $fileName = time() . '_' . $request->file('img_src')->getClientOriginalName();
+        $getImageSourceName = "pictures/".$fileName;
+
         // Store the fund event
         $postContent = new PostContent();
         $postContent->user_id = auth()->id();
@@ -38,8 +40,10 @@ class FundEventController extends Controller
         $postContent->event_date = Carbon::create($validated['event_date'])->getTimestamp();
         $postContent->save();
 
-        // Store the image is not working
-        $request->file('img_src')->storeAs('public/pictures', $getImageSourceName);
+        $file = $request->file('img_src');
+
+        // Store the file in public/pictures
+        $file->move(public_path('pictures'), $fileName);
 
         return redirect()->route('super.dashboard');
 

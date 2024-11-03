@@ -32,7 +32,7 @@
                         {{ $info->fund_id }}
                     </span>
                     </p>
-                    <p>Time: {{ $info->event_date }}</p>
+                    <p>Time: {{ \Carbon\Carbon::parse($info->event_date)->format('d-m-Y H:i') }}</p>
                     <p>Place: {{ $info->place_of_event }}</p>
                 </div>
                 <div class="w-1/4 my-auto">
