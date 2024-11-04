@@ -42,13 +42,21 @@
                     <p>Time: {{ \Carbon\Carbon::parse($info->event_date)->format('d-m-Y H:i') }}</p>
                     <p>Place: {{ $info->place_of_event }}</p>
                 </div>
-                <div class="w-1/4 my-auto">
+
+                <div x-data="{ input: '{{ route('fund.id.set', ['id'=>$info->fund_id]) }}', showMsg: false }" class="w-1/4 flex flex-col my-auto">
                     <a href="{{ route('super.event.show', $info->fund_id) }}"
-                       class="bg-fundy-primary hover:bg-fundy-hover-secondary text-white break-keep font-bold py-2 px-4 rounded">
+                       class="bg-fundy-primary hover:bg-fundy-hover-secondary text-white break-keep font-bold py-2 px-4 rounded w-20 flex justify-center">
                         View
                     </a>
+                    <a type="button" @click="navigator.clipboard.writeText(input), showMsg = true, setTimeout(() => showMsg = false, 1000)" class="cursor-copy">
+                        <button id="clipboard" class="relative pl-1 py-4 cursor-copy text-xs font-medium">Copy Link</button>
+                        <div x-show="showMsg" @click.away="showMsg = false" class="fixed bottom-3 right-3 z-20 max-w-sm overflow-hidden bg-green-100 border border-green-300 rounded" style="display: none;">
+                            <p class="p-3 flex items-center justify-center text-green-600">Link Copied</p>
+                        </div>
+                    </a>
                 </div>
-        </div>
+
+    </div>
         @endforeach
     </div>
 </x-layouts.app>
