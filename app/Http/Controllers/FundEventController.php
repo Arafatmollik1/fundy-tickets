@@ -37,7 +37,7 @@ class FundEventController extends Controller
         $postContent->img_src = $getImageSourceName;
         $postContent->ticket_price = $validated['event_price'];
         $postContent->place_of_event = $validated['place_of_event'];
-        $postContent->event_date = Carbon::create($validated['event_date'])->getTimestamp();
+        $postContent->event_date = Carbon::parse($validated['event_date'])->format('Y-m-d H:i:s');
         $postContent->save();
 
         $file = $request->file('img_src');
