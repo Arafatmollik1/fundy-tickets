@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('participant_no');
             $table->integer('amount');
             $table->timestamp('payment_date')->useCurrent();
-            $table->enum('status', ['pending', 'none', 'confirmed'])->default('pending');
+            $table->string('status')->default('pending');
             $table->timestamps(); // Optional, if you want to track created_at and updated_at
         });
     }

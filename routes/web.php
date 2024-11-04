@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
 
 // Route that requires fund_id in session, otherwise redirects to get-fund-id
 Route::middleware('fund.id')->group(function () {
-
     Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
         ->name('tickets.showByFundId');
     Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
@@ -76,3 +75,4 @@ Route::middleware('fund.id')->group(function () {
     Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
         ->name('tickets.payments.set');
 });
+Route::post('/tickets/{id}/status' , [PaymentController::class, 'updateStatus']);

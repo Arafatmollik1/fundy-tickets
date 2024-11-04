@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentStatus;
 use App\Mail\PaymentConfirmationMail;
 use App\Models\Payment;
 use App\Models\PaymentRecipientInfo;
@@ -38,11 +39,21 @@ class PaymentController extends Controller
             'ref_no' => $request->input('ref_no'),
             'amount' => $request->input('total_amount'),
             'payment_date' => Carbon::now(),
-            'status' => 'pending',
+            'status' => PaymentStatus::Pending,
         ]);
         $payment->save();
 
         return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')])->with('success', 'Payment pending! You will be sent email after confirmation.');
+    }
 
+    public function updateStatus(Request $request, PaymentRecipientInfo $payment)
+    {
+        $request->validate([
+            'status' => 'required|in:none,pending,confirmed',
+        ]);
+
+        $payment->update(['status' => $request->status]);
+
+        return response()->json(['message' => 'Status updated successfully'], 200);
     }
 }

@@ -35,6 +35,10 @@ class PostContent extends Model
         'event_date',
     ];
 
+    protected $casts = [
+        'event_date' => 'datetime:Y-m-d H:i:s',
+    ];
+
     // Define the relationship with the User model
     public function user(): BelongsTo
     {

@@ -42,8 +42,9 @@ class SuperController
         return view('super.payment-info',
             [
                 'statusColorBG' => [
-                    'pending' => 'fundy-warning-bg',
-                    'confirmed' => 'fundy-success-bg',
+                    'pending' => 'fundy-danger-bg',
+                    'confirmed' => 'fundy-success',
+                    'none' => 'fundy-text-gray',
                 ],
                 'paymentInfo' => $paymentInfo,
                 'fundId' => $fundId,
