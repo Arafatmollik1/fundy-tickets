@@ -19,8 +19,10 @@ class PaymentController extends Controller
     {
         $postContent = PostContent::where('fund_id', session('fund_id'))->first();
 
+        $paymentRecipientInfo = PaymentRecipientInfo::where('user_id' , $postContent->user_id)->first();
+
         return view('tickets.payments', [
-            'paymentRecipientInfo' => $postContent ? $postContent->paymentRecipientInfo : null,
+            'paymentRecipientInfo' => $paymentRecipientInfo,
             'ticket_price' => optional($postContent)->ticket_price,
         ]);
     }
