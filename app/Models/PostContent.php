@@ -38,16 +38,4 @@ class PostContent extends Model
     protected $casts = [
         'event_date' => 'datetime:Y-m-d H:i:s',
     ];
-
-    // Define the relationship with the User model
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // Get paymentRecipientInfo from user id
-    public function paymentRecipientInfo(): BelongsTo
-    {
-        return $this->belongsTo(PaymentRecipientInfo::class, 'user_id', 'user_id');
-    }
 }

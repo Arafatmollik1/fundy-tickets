@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('post_content', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('user_id')->nullable();
             $table->string('fund_id');
             $table->string('header');
             $table->string('subheader');
