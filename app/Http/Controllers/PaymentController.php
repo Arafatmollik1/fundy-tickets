@@ -21,7 +21,7 @@ class PaymentController extends Controller
 
         $paymentRecipientInfo = PaymentRecipientInfo::where('user_id' , $postContent->user_id)->first();
 
-        return view('tickets.payments', [
+        return view('fundraising.donations', [
             'paymentRecipientInfo' => $paymentRecipientInfo,
             'ticket_price' => optional($postContent)->ticket_price,
         ]);

@@ -8,7 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentRecipientInfoController;
 use App\Http\Controllers\SuperController;
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\FundraisingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,11 +68,11 @@ Route::middleware('auth')->group(function () {
 
 // Route that requires fund_id in session, otherwise redirects to get-fund-id
 Route::middleware('fund.id')->group(function () {
-    Route::get('/tickets/{fund_id}', [TicketController::class, 'showByFundId'])
-        ->name('tickets.showByFundId');
-    Route::get('/tickets/{fund_id}/payments', [PaymentController::class, 'showPayByFundId'])
-        ->name('tickets.showPayByFundId');
-    Route::post('/tickets/{fund_id}/set-payments', [PaymentController::class, 'setPayment'])
-        ->name('tickets.payments.set');
+    Route::get('/fundraising/{fund_id}', [FundraisingController::class, 'showByFundId'])
+        ->name('fundraising.showByFundId');
+    Route::get('/fundraising/{fund_id}/donations', [PaymentController::class, 'showPayByFundId'])
+        ->name('fundraising.showPayByFundId');
+    Route::post('/fundraising/{fund_id}/set-donations', [PaymentController::class, 'setPayment'])
+        ->name('fundraising.donations.set');
 });
-Route::post('/tickets/{id}/status' , [PaymentController::class, 'updateStatus']);
+Route::post('/fundraising/{id}/status' , [PaymentController::class, 'updateStatus']);
