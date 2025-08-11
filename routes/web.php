@@ -23,8 +23,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('fund.id.get');
+    return redirect()->route('events.index');
 });
+
+Route::get('/events', [FundraisingController::class, 'listEvents'])->name('events.index');
 
 // Route for setting the fund_id and redirecting to login
 Route::get('/fund-id', [FundIdController::class, 'setFundId'])->name('fund.id.set');
@@ -43,6 +45,7 @@ Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCal
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/my-donations', [FundraisingController::class, 'showMyDonations'])->name('my-donations');
     /*
  |----------------------------------
  | Routes under super

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentsSimplified;
+use App\Models\Payment;
 use App\Models\PostContent;
-use App\Models\PostContentSimplified;
-use App\Models\TicketsSimplified;
 
 class FundraisingController extends Controller
 {
@@ -22,19 +20,29 @@ class FundraisingController extends Controller
 
     public function showMyDonations()
     {
-        $ticketInfo = TicketsSimplified::where('fund_id', session('fund_id'))->get();
-        $ticketStatusBG = [
+        $donations = Payment::where('user_id', auth()->id())
+            ->join('post_contents', 'payments.fund_id', '=', 'post_contents.fund_id')
+            ->get();
+
+        $donationStatusBG = [
             'pending' => 'bg-fundy-warning-bg',
             'confirmed' => 'bg-fundy-success-bg',
         ];
-        $eventName = PostContentSimplified::where('fund_id', session('fund_id'))->first();
 
         return view('fundraising.my-donations',
             [
-                'ticketInfo' => $ticketInfo,
-                'ticketStatusBG' => $ticketStatusBG,
-                'eventName' => $eventName->header,
+                'donations' => $donations,
+                'donationStatusBG' => $donationStatusBG,
             ]
         );
+    }
+
+    public function listEvents()
+    {
+        $events = PostContent::all();
+
+        return view('fundraising.list', [
+            'events' => $events,
+        ]);
     }
 }

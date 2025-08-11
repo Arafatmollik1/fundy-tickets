@@ -4,20 +4,20 @@
     >
         <p class="text-2xl font-bold text-white">My Donations</p>
     </div>
-    @foreach($ticketInfo as $donation)
+    @foreach($donations as $donation)
         <div class="container mx-auto ">
             <div class="flex flex-col-reverse gap-2 md:flex-row bg-white lg:flex-row shadow-lg rounded-xl p-8 my-4">
                 <div class="flex flex-col gap-1 md:w-3/4">
-                    <p>Name: {{$donation->ticket_user_name}}</p>
-                    <p>Participants: {{$donation->ticket_quantity}}</p>
-                    <p>Event: {{$eventName}}</p>
+                    <p>Name: {{$donation->payers_name}}</p>
+                    <p>Amount: {{$donation->amount}}</p>
+                    <p>Event: {{$donation->header}}</p>
                     <p class="line-clamp-1">
                         Payment ID:
-                        <span class="bg-gray-100 p-1 rounded-3xl"> {{$donation->ticket_payment_id}}</span>
+                        <span class="bg-gray-100 p-1 rounded-3xl"> {{$donation->payment_id}}</span>
                     </p>
                 </div>
                 <div class="flex w-1/4 justify-start md:justify-center items-center">
-                    <div class="{{ $ticketStatusBG[$donation->status] }} rounded-3xl px-4 py-2">
+                    <div class="{{ $donationStatusBG[$donation->status] }} rounded-3xl px-4 py-2">
                         {{$donation->status}}
                     </div>
                 </div>

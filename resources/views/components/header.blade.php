@@ -8,7 +8,11 @@
                 <span class="font-bold text-fundy-primary">Fundy</span>
             </a>
 
-            <div class="flex align-middle gap-2">
+            <div class="flex align-middle gap-4">
+                <a href="{{ route('my-donations') }}"
+                     class="nav-item nav-link active inline-flex items-center text-lg text-gray-700 hover:text-gray-900 focus:text-gray-900">
+                        My Donations
+                </a>
                 <a href="{{ route('logout') }}"
                    class="nav-item nav-link active inline-flex items-center text-lg text-gray-700 hover:text-gray-900 focus:text-gray-900">
                     <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"

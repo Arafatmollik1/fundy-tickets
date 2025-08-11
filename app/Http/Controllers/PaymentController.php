@@ -31,7 +31,7 @@ class PaymentController extends Controller
     {
         $payment = new Payment([
             'payment_id' => Str::uuid(),
-            'user_id' => rand(1, 100),
+            'user_id' => auth()->id(),
             'fund_id' => session('fund_id'),
             'payers_name' => $request->input('payers_name'),
             'payers_email' => $request->input('payers_email'),
@@ -45,7 +45,7 @@ class PaymentController extends Controller
         ]);
         $payment->save();
 
-        return redirect()->route('tickets.showByFundId', ['fund_id' => session('fund_id')])->with('success', 'Payment pending! You will be sent email after confirmation.');
+        return redirect()->route('fundraising.showByFundId', ['fund_id' => session('fund_id')])->with('success', 'Payment pending! You will be sent email after confirmation.');
     }
 
     public function updateStatus(Request $request, PaymentRecipientInfo $payment)
