@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: myapp-mysql
+    ports:
+      - "3316:3306" # Host port 3316 -> Container port 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fundy
+      MYSQL_USER: sakib
+      MYSQL_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:

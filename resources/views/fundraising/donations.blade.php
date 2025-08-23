@@ -5,10 +5,10 @@
             class="flex flex-col bg-transparent w-[300px] lg:w-full h-auto mb-10"
         >
             <h1 class="text-2xl font-bold text-left my-8">
-                Pay for the tickets
+                Make a Donation
             </h1>
             <form
-                action="{{ route('tickets.payments.set' , ['fund_id' => session('fund_id')]) }}"
+                action="{{ route('fundraising.donations.set' , ['fund_id' => session('fund_id')]) }}"
                 method="POST"
                 class="max-w-md"
             >
@@ -116,7 +116,7 @@
                             class="w-fit bg-fundy-primary hover:bg-fundy-hover-primary text-white font-bold py-2 px-4 rounded">
                             I have paid the amount
                         </button>
-                        <a href="{{ route('tickets.showByFundId' , ['fund_id' => session('fund_id')]) }}"
+                        <a href="{{ route('fundraising.showByFundId' , ['fund_id' => session('fund_id')]) }}"
                            class="w-fit bg-fundy-secondary hover:bg-fundy-hover-secondary text-white font-bold py-2 px-4 rounded">
                             <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
                             Go back

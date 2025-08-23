@@ -28,7 +28,7 @@
                             class="w-fit bg-gray-100 text-gray-800 text-xs font-medium me-2 p-2 rounded-full"
                         >
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            Price: {{$post_content->ticket_price}}€
+                            Donation Amount: {{$post_content->ticket_price}}€
                         </div>
                         <div
                             class="w-fit bg-gray-100 text-gray-800 text-xs font-medium me-2 p-2 rounded-full"
@@ -44,10 +44,10 @@
                         </div>
                     </div>
                     <a
-                        href="{{ route('tickets.showPayByFundId', ['fund_id' => session('fund_id')]) }}"
+                        href="{{ route('fundraising.showPayByFundId', ['fund_id' => session('fund_id')]) }}"
                         class="bg-fundy-primary hover:bg-fundy-hover-primary text-white font-bold py-2 px-4 rounded"
                     >
-                        Book Now
+                        Donate Now
                     </a>
                 </div>
             </div>
