@@ -110,7 +110,7 @@ Then run the following
 mkdir -p storage/framework/{cache,sessions,views} \
   && mkdir -p bootstrap/cache \
   && chmod -R 775 storage bootstrap/cache \
-  && sudo chown -R $USER:$USER storage bootstrap/cach
+  && sudo chown -R $USER:$USER storage bootstrap/cache
 
 php artisan config:clear
 php artisan cache:clear

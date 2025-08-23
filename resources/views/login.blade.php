@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="w-full">
+{{--                 <div class="w-full">
                     <div id="gSignInWrapper">
                         <div id="customBtn"
                              class="inline-block bg-fundy-main text-fundy-text text-center align-middle w-full rounded border border-fundy-primary shadow-md whitespace-nowrap">
@@ -24,12 +24,13 @@
 
                     </div>
                     <div id="name"></div>
-                </div>
+                </div> 
                 <div class="flex items-center justify-center my-4 w-full">
                     <div class="flex-grow border-t border-gray-300"></div>
                     <span class="flex-shrink mx-4 text-gray-600">OR</span>
                     <div class="flex-grow border-t border-gray-300"></div>
                 </div>
+                --}}
 
                 <div class="w-full">
                     <form action="login/processLoginWithEmail" method="POST" id="loginForm" class="py-4 space-y-4">
