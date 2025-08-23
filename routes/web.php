@@ -38,6 +38,9 @@ Route::get('/get-fund-id', function () {
 
 Route::get('/login', [LoginController::class, 'index'])
     ->name('login');
+
+Route::post('/login/processLoginWithEmail', [LoginController::class, 'processLoginWithEmail']);
+
 Route::get('/login/google', [GoogleAuthController::class, 'redirectToGoogle'])
     ->name('login.google');
 Route::get('/login/authcallback', [GoogleAuthController::class, 'handleGoogleCallback'])
@@ -78,4 +81,4 @@ Route::middleware('fund.id')->group(function () {
     Route::post('/fundraising/{fund_id}/set-donations', [PaymentController::class, 'setPayment'])
         ->name('fundraising.donations.set');
 });
-Route::post('/fundraising/{id}/status' , [PaymentController::class, 'updateStatus']);
+Route::post('/fundraising/{id}/status', [PaymentController::class, 'updateStatus']);

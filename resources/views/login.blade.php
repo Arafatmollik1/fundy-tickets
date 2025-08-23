@@ -33,17 +33,8 @@
 
                 <div class="w-full">
                     <form action="login/processLoginWithEmail" method="POST" id="loginForm" class="py-4 space-y-4">
-                        <div class="relative mb-8">
-                            <input type="text" name="name" id="floatingName"
-                                   class="bg-transparent peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-fundy-primary"
-                                   placeholder="Name" required>
-                            <label for="floatingName"
-                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-fundy-primary peer-focus:text-sm"
-                            >
-                                Name
-                            </label>
-                        </div>
-                        <div class="relative">
+                        @csrf
+                        <div class="relative  mb-8">
                             <input type="email" name="email" id="floatingEmail"
                                    class="bg-transparent peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-fundy-primary"
                                    placeholder="name@example.com" required>
@@ -53,12 +44,29 @@
                                 Email
                             </label>
                         </div>
+
+                        <div class="relative">
+                            <input type="text" name="password" id="floatingName"
+                                   class="bg-transparent peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-fundy-primary"
+                                   placeholder="password" required>
+                            <label for="floatingName"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-fundy-primary peer-focus:text-sm"
+                            >
+                                Password
+                            </label>
+                        </div>
                         <button
                             class="w-full bg-fundy-primary hover:bg-fundy-hover-primary text-white font-bold py-2 px-4 rounded"
                             type="submit"
                         >
                             Sign In
                         </button>
+
+                        @if(session('error'))
+                            <div class="text-red-500 text-center mt-2">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

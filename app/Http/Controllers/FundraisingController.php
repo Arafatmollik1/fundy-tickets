@@ -11,7 +11,8 @@ class FundraisingController extends Controller
     {
         $post_content = PostContent::where('fund_id', session('fund_id'))->first();
 
-        return view('fundraising.index',
+        return view(
+            'fundraising.index',
             [
                 'post_content' => $post_content,
             ]
@@ -20,8 +21,8 @@ class FundraisingController extends Controller
 
     public function showMyDonations()
     {
-        $donations = Payment::where('user_id', auth()->id())
-            ->join('post_contents', 'payments.fund_id', '=', 'post_contents.fund_id')
+        $donations = Payment::where('payments.user_id', auth()->id())
+            ->join('post_content', 'payments.fund_id', '=', 'post_content.fund_id')
             ->get();
 
         $donationStatusBG = [
@@ -29,7 +30,8 @@ class FundraisingController extends Controller
             'confirmed' => 'bg-fundy-success-bg',
         ];
 
-        return view('fundraising.my-donations',
+        return view(
+            'fundraising.my-donations',
             [
                 'donations' => $donations,
                 'donationStatusBG' => $donationStatusBG,
