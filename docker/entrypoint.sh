@@ -13,11 +13,15 @@ if [ ! -f .env ]; then
   cp .env.example .env
 fi
 
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
 php artisan key:generate --force
 php artisan migrate --force
 
 # Run Node build if in dev
-npm run build
+#npm run build
 
 # Start Apache
 exec apache2-foreground

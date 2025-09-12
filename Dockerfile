@@ -61,8 +61,11 @@ COPY . .
 # Run any remaining composer scripts now that all files are present
 RUN composer dump-autoload --optimize
 
-# Build frontend assets
-RUN npm run build
+# Create Laravel storage directories and bootstrap cache
+RUN mkdir -p storage/framework/{cache,sessions,views,testing} \
+    && mkdir -p storage/app/public \
+    && mkdir -p storage/logs \
+    && mkdir -p bootstrap/cache
 
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html \
