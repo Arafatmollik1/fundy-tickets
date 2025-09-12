@@ -45,8 +45,6 @@ php artisan key:generate --force
 echo "Running migrations..."
 php artisan migrate --force
 
-npm run dev
-
 # Create storage link if it doesn't exist
 if [ ! -L public/storage ]; then
     echo "Creating storage link..."
