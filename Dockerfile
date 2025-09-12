@@ -38,15 +38,7 @@ RUN echo '<VirtualHost *:80>\n\
 # Copy composer files first for better layer caching
 COPY composer.json composer.lock ./
 
-# Copy the Laravel application structure needed for composer
-COPY artisan ./
-COPY bootstrap/ ./bootstrap/
-COPY app/ ./app/
-COPY config/ ./config/
-COPY database/ ./database/
-COPY routes/ ./routes/
-
-# Install PHP dependencies
+# Install PHP dependencies (without scripts first)
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy package.json files
@@ -55,20 +47,23 @@ COPY package.json package-lock.json* ./
 # Install Node dependencies
 RUN npm install
 
-# Copy the rest of the application
+# Copy the entire Laravel application
 COPY . .
 
-# Run any remaining composer scripts now that all files are present
-RUN composer dump-autoload --optimize
-
-# Create Laravel storage directories and bootstrap cache
-RUN mkdir -p storage/framework/{cache,sessions,views,testing} \
+# Create Laravel storage directories and bootstrap cache with proper structure
+RUN mkdir -p storage/framework/{cache/data,sessions,views,testing} \
     && mkdir -p storage/app/public \
     && mkdir -p storage/logs \
-    && mkdir -p bootstrap/cache
+    && mkdir -p bootstrap/cache \
+    && mkdir -p resources/views
 
-# Fix permissions
+# Run composer scripts now that all files are present
+RUN composer dump-autoload --optimize
+
+# Fix permissions - this is crucial
 RUN chown -R www-data:www-data /var/www/html \
+    && find /var/www/html -type f -exec chmod 644 {} \; \
+    && find /var/www/html -type d -exec chmod 755 {} \; \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 

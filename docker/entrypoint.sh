@@ -8,20 +8,44 @@ until php -r "try { new PDO('mysql:host=${DB_HOST};port=${DB_PORT};dbname=${DB_D
 done
 echo "DB up"
 
-# Run Laravel setup
+# Ensure proper permissions on mounted volumes
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Create .env if it doesn't exist
 if [ ! -f .env ]; then
   cp .env.example .env
+  echo "Created .env from .env.example"
 fi
 
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
+# Clear caches (with better error handling)
+echo "Clearing configuration cache..."
+php artisan config:clear || echo "Config clear failed, but continuing..."
+
+echo "Clearing application cache..."
+php artisan cache:clear || echo "Cache clear failed, but continuing..."
+
+echo "Clearing route cache..."
+php artisan route:clear || echo "Route clear failed, but continuing..."
+
+echo "Clearing view cache..."
+php artisan view:clear || echo "View clear failed, but continuing..."
+
+# Generate application key if needed
+echo "Generating application key..."
 php artisan key:generate --force
+
+# Run migrations
+echo "Running migrations..."
 php artisan migrate --force
 
-# Run Node build if in dev
-#npm run build
+# Create storage link if it doesn't exist
+if [ ! -L public/storage ]; then
+    echo "Creating storage link..."
+    php artisan storage:link || echo "Storage link creation failed, but continuing..."
+fi
+
+echo "Laravel setup complete. Starting Apache..."
 
 # Start Apache
 exec apache2-foreground
