@@ -7,9 +7,15 @@ until php -r "try { new PDO('mysql:host=${DB_HOST};port=${DB_PORT};dbname=${DB_D
   sleep 2
 done
 echo "DB up"
+# Create missing directories if they don't exist (in case of volume mounts)
+mkdir -p storage/framework/{cache/data,sessions,views,testing}
+mkdir -p storage/app/public
+mkdir -p storage/logs
+mkdir -p bootstrap/cache
+mkdir -p resources/views
 
-# Ensure proper permissions on mounted volumes
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Ensure proper permissions on all storage directories
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/resources
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Create .env if it doesn't exist
