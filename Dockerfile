@@ -39,7 +39,7 @@ RUN echo '<VirtualHost *:80>\n\
 COPY composer.json composer.lock ./
 
 # Install PHP dependencies (without scripts first)
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install
 
 # Copy package.json files
 COPY package.json package-lock.json* ./

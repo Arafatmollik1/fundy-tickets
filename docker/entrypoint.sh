@@ -24,6 +24,11 @@ if [ ! -f .env ]; then
   echo "Created .env from .env.example"
 fi
 
+if [ ! -d "vendor" ]; then
+  echo "No vendor directory found. Installing dependencies..."
+  composer install
+fi
+
 # Clear caches (with better error handling)
 echo "Clearing configuration cache..."
 php artisan config:clear || echo "Config clear failed, but continuing..."
