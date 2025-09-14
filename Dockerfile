@@ -12,8 +12,6 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    nodejs \
-    npm \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -35,34 +33,26 @@ RUN echo '<VirtualHost *:80>\n\
     CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-# Copy composer files first for better layer caching
+# Copy only composer files for better cache
 COPY composer.json composer.lock ./
+RUN composer install --no-scripts --no-autoloader || true
 
-# Install PHP dependencies (without scripts first)
-RUN composer install
-
-# Copy package.json files
-COPY package.json package-lock.json* ./
-
-# Copy the entire Laravel application
+# Copy the Laravel app
 COPY . .
 
-# Create Laravel storage directories and bootstrap cache with proper structure
+# Ensure storage and bootstrap dirs exist
 RUN mkdir -p storage/framework/{cache/data,sessions,views,testing} \
     && mkdir -p storage/app/public \
     && mkdir -p storage/logs \
     && mkdir -p bootstrap/cache \
     && mkdir -p resources/views
 
-# Run composer scripts now that all files are present
+# Optimize Composer autoload
 RUN composer dump-autoload --optimize
 
-# Fix permissions - this is crucial
+# Fix permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && find /var/www/html -type f -exec chmod 644 {} \; \
-    && find /var/www/html -type d -exec chmod 755 {} \; \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Add entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
