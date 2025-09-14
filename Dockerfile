@@ -44,9 +44,6 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Copy package.json files
 COPY package.json package-lock.json* ./
 
-# Install Node dependencies
-RUN npm install
-
 # Copy the entire Laravel application
 COPY . .
 
