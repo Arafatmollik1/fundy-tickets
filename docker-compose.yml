@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   app:
     build:
@@ -7,8 +9,7 @@ services:
       - "8010:80"
     volumes:
       - .:/var/www/html
-      - ./storage:/var/www/html/storage
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+      - laravel_vendor:/var/www/html/vendor
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
@@ -48,9 +49,10 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - laravel_node_modules:/var/www/html/node_modules
     command: sh -c "npm install && npm run dev"
     ports:
-      - "5173:5173" # expose vite
+      - "5173:5173"
     networks:
       - laravel
     depends_on:
@@ -58,6 +60,8 @@ services:
 
 volumes:
   mysql_data:
+  laravel_vendor:
+  laravel_node_modules:
 
 networks:
   laravel:

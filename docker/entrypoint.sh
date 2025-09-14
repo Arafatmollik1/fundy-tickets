@@ -7,6 +7,14 @@ until php -r "try { new PDO('mysql:host=${DB_HOST};port=${DB_PORT};dbname=${DB_D
   sleep 2
 done
 echo "DB up"
+
+# Install composer deps if vendor is missing
+if [ ! -d "vendor" ]; then
+  echo "No vendor found. Running composer install..."
+  composer install
+fi
+
+
 # Create missing directories if they don't exist (in case of volume mounts)
 mkdir -p storage/framework/{cache/data,sessions,views,testing}
 mkdir -p storage/app/public
@@ -22,11 +30,6 @@ chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 if [ ! -f .env ]; then
   cp .env.example .env
   echo "Created .env from .env.example"
-fi
-
-if [ ! -d "vendor" ]; then
-  echo "No vendor directory found. Installing dependencies..."
-  composer install
 fi
 
 # Clear caches (with better error handling)
