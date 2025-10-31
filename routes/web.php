@@ -1,10 +1,17 @@
 <?php
 
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
+// Home page - redirect to posts
 Route::get('/', function () {
-    Log::info('Welcome page visited');
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
 
 Route::get('/info', function () {
@@ -63,3 +70,19 @@ Route::get('/health', function () {
 
     return response()->json($status, $httpStatus);
 });
+
+// Authentication Routes
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
+
+// Posts Routes
+Route::resource('posts', PostController::class);
+
+// Donation Routes
+Route::get('/posts/{post}/donate', [DonationController::class, 'create'])->name('donations.create');
+Route::post('/posts/{post}/donate', [DonationController::class, 'store'])->name('donations.store');
+Route::get('/donations/{donation}', [DonationController::class, 'show'])->name('donations.show');
