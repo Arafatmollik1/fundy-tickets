@@ -79,16 +79,52 @@
                         </small>
                     </div>
                     
-                    <a href="{{ route('donations.create', $post) }}" class="btn btn-success btn-lg">
-                        <i class="fas fa-heart me-2"></i>Donate Now
-                    </a>
+                    <div class="d-flex gap-2">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-share-alt me-2"></i>Share
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="copyToClipboard('{{ route('posts.show', $post) }}')">
+                                        <i class="fas fa-copy me-2"></i>Copy Link
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="https://wa.me/?text={{ urlencode('Check out this fundraising post: ' . route('posts.show', $post)) }}" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $post)) }}" target="_blank">
+                                        <i class="fab fa-facebook me-2"></i>Facebook
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://twitter.com/intent/tweet?text={{ urlencode('Check out this fundraising post: ' . route('posts.show', $post)) }}" target="_blank">
+                                        <i class="fab fa-twitter me-2"></i>Twitter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="mailto:?subject={{ 'Check out this fundraising post' }}&body={{ route('posts.show', $post)}}">
+                                        <i class="fas fa-envelope me-2"></i>Email
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <a href="{{ route('donations.create', $post) }}" class="btn btn-success btn-lg">
+                            <i class="fas fa-heart me-2"></i>Donate Now
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
     <div class="col-lg-4">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mt-4">
             <div class="card-header">
                 <h5 class="mb-0">
                     <i class="fas fa-users me-2"></i>Recent Donations
@@ -113,9 +149,11 @@
                         </div>
                     @endforeach
                     
-                    <div class="text-center">
-                        <a href="#" class="btn btn-outline-primary btn-sm">View All Donations</a>
-                    </div>
+                    @if($totalDonationsCount > 3)
+                        <div class="text-center">
+                            <a href="{{ route('donations.index', $post) }}" class="btn btn-outline-primary btn-sm">View All Donations</a>
+                        </div>
+                    @endif
                 @else
                     <div class="text-center py-3">
                         <i class="fas fa-heart-broken fa-2x text-muted mb-2"></i>
@@ -127,4 +165,34 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            // Show success message
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '1050';
+            alert.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>Link copied to clipboard!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            // Auto dismiss after 3 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 3000);
+        }).catch(function(err) {
+            console.error('Failed to copy: ', err);
+            alert('Failed to copy link to clipboard');
+        });
+    }
+</script>
 @endsection

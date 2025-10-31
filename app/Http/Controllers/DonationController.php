@@ -55,7 +55,16 @@ class DonationController extends Controller
     public function show(Donation $donation)
     {
         $this->authorize('view', $donation);
-        
+
         return view('donations.show', compact('donation'));
+    }
+
+    public function index(Post $post)
+    {
+        $donations = $post->donations()
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('donations.index', compact('post', 'donations'));
     }
 }

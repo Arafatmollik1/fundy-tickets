@@ -62,13 +62,15 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post->load(['user']);
-        
-        $donations = $post->donations()
-            ->where('is_anonymous', false)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
 
-        return view('posts.show', compact('post', 'donations'));
+        $totalDonationsCount = $post->donations()->count();
+
+        $donations = $post->donations()
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('posts.show', compact('post', 'donations', 'totalDonationsCount'));
     }
 
     /**
@@ -77,7 +79,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
-        
+
         return view('posts.edit', compact('post'));
     }
 

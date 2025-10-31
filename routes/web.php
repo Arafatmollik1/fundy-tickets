@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +16,7 @@ Route::get('/', function () {
 
 Route::get('/info', function () {
     Log::info('Phpinfo page visited');
+
     return phpinfo();
 });
 
@@ -86,3 +87,8 @@ Route::resource('posts', PostController::class);
 Route::get('/posts/{post}/donate', [DonationController::class, 'create'])->name('donations.create');
 Route::post('/posts/{post}/donate', [DonationController::class, 'store'])->name('donations.store');
 Route::get('/donations/{donation}', [DonationController::class, 'show'])->name('donations.show');
+Route::get('/posts/{post}/donations', [DonationController::class, 'index'])->name('donations.index'); // New route
+
+// Profile Routes
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
